@@ -1,0 +1,22 @@
+//- import blocks
+include ../blocks/head/head
+
+//- template
+doctype html
+html(lang="ru")
+    block head
+        head
+            +head({
+                "title": "Test layout",
+                "author": "Salavat Salahutdinov",
+                "description": "Pug+SCSS layout",
+                "fonts": [
+                    // {
+                    //     "href": "https://fonts.googleapis.com/css?family=Lato:300,400,400i,500,700,900",
+                    //     "rel": "stylesheet"
+                    // }
+                ]
+            })
+    block body
+        body
+            block content
