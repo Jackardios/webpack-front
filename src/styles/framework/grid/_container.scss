@@ -1,0 +1,22 @@
+// container
+%container {
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    transition: max-width .12s ease;
+    max-width: 100%;
+    overflow-x: hidden;
+    @each $name, $value in $grid-breakpoints {
+        @include for-size-bigger-than($name) {
+            max-width: map-get($container-max-widths, $name);
+        }
+    }
+}
+
+@mixin container($padding: none) {
+    @extend %container;
+    @if $padding != none {
+        padding-left: $padding;
+        padding-right: $padding;
+    }
+}

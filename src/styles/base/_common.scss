@@ -1,0 +1,18 @@
+body {
+    font-size: 16px;
+    // font-family: "...", sans-serif;
+    // line-height: 1.5;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+@for $i from 1 through 6 {
+    h#{$i} {
+        // font-family: "...", serif;
+        // font-style: normal;
+        // letter-spacing: ...;
+    }
+}
