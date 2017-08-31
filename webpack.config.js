@@ -82,8 +82,7 @@ module.exports = function(env) {
             common,
             uglifyJS(),
             cssExtract([].concat(normalizePaths)),
-            images({
-                paths: [
+            images([
                     {
                         input: path.resolve(PATHS.assets, 'images'),
                         output: 'images/'
@@ -93,8 +92,8 @@ module.exports = function(env) {
                         output: 'images/jquery-ui/'
                     }
                 ],
-                optimize: true
-            }),
+                true
+            ),
         ]);
     } else {
         return merge([
@@ -102,8 +101,7 @@ module.exports = function(env) {
             devServer(),
             sass([].concat(normalizePaths)),
             css(),
-            images({
-                paths: [
+            images([
                     {
                         input: path.resolve(PATHS.assets, 'images'),
                         output: 'images/'
@@ -113,8 +111,8 @@ module.exports = function(env) {
                         output: 'images/jquery-ui/'
                     }
                 ],
-                optimize: false
-            }),
+                false
+            ),
         ]);
     }
 }

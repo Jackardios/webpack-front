@@ -5,7 +5,7 @@ module.exports = function(paths = [], optimize = true) {
         }
     };
 
-    for (let pathObj in paths) {
+    paths.forEach(function(pathObj) {
         let rule = {
             test: /\.(jpe?g|png|gif|svg)$/i,
             include: pathObj.input,
@@ -27,7 +27,7 @@ module.exports = function(paths = [], optimize = true) {
         }
 
         config.module.rules.push(rule);
-    }
+    })
 
     return config;
 }
