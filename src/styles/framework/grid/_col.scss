@@ -1,3 +1,8 @@
+%col-base {
+    box-sizing: border-box;
+    min-height: 1px;
+}
+
 // Convert list of col numbers to media map
 @function list-to-media-map($list) {
     $breakpoints: map-keys($grid-breakpoints);
@@ -61,8 +66,7 @@
 
 // flexbox based row item
 @mixin col-flex($size: 1, $align-y: none, $grid: $default-grid) {
-    box-sizing: border-box;
-    min-height: 1px;
+    @extend %col-base;
 
     $grid-half-gutter: get-grid-value(gutter, $grid) / 2;
     margin-left: $grid-half-gutter;
@@ -108,8 +112,11 @@
     }
 }
 
+
 // float based row item
 @mixin col-float($size: 1, $grid: $default-grid) {
+    @extend %col-base;
+    
     $reversed: get-grid-value(reversed, $grid);
 
     @if ($reversed) {
@@ -117,9 +124,6 @@
     } @else {
         float: left;
     }
-
-    box-sizing: border-box;
-    min-height: 1px;
 
     $grid-half-gutter: get-grid-value(gutter, $grid) / 2;
     margin-left: $grid-half-gutter;
@@ -147,7 +151,7 @@
     $driver: get-grid-value(driver, $grid);
     @if $driver == flex {
         @include col-flex($size: $size, $align-y: $align-y, $grid: $grid);
-    } @if $driver == float {
+    } @else if $driver == float {
         @include col-float($size: $size, $grid: $grid);
     }
 
@@ -159,7 +163,7 @@
     $driver: get-grid-value(driver, $grid);
     @if $driver == flex {
         @include col-flex-change($size: $size, $align-y: $align-y, $grid: $grid);
-    } @if $driver == float {
+    } @else if $driver == float {
         @include col-float-change($size: $size, $grid: $grid);
     }
 

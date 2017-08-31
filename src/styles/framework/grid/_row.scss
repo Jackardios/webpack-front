@@ -71,7 +71,7 @@
 }
 
 // common mixin row()
-@mixin row($grid: $default-grid) { // $align-y only to flex driver
+@mixin row($grid: $default-grid) {
 
     $driver: get-grid-value(driver, $grid);
     @if $driver == flex {

@@ -6,13 +6,13 @@
 
 
 // base
-@import "base/*";
+@import "base/*.scss";
 
 // framework
-@import "framework/*";
+@import "framework/*.scss";
 
 // components
-@import "components/*";
+@import "components/*.scss";
 
 // blocks
 @import "../blocks/**/*.scss";
