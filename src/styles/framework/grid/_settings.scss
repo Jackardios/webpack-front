@@ -15,12 +15,14 @@ $grid-breakpoints: (
     sm: (576px, 767px), // Small screen
     md: (768px, 991px), // Medium screen
     lg: (992px, 1199px), // Large screen
-    xl: (1200px, null) // Extra large screen
+    xl: (1200px, 1919px), // Extra large screen
+    xx: (1920px, null)
 ) !default;
 
 $container-max-widths: (
     sm: 540px, // Small screen
     md: 720px, // Medium screen
     lg: 960px, // Large screen
-    xl: 1140px // Extra large screen
+    xl: 1140px, // Extra large screen
+    xx: 1700px // Extra large screen
 ) !default;

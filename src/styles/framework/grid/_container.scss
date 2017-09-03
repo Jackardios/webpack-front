@@ -5,7 +5,6 @@
     box-sizing: border-box;
     transition: max-width .12s ease;
     max-width: 100%;
-    overflow-x: hidden;
     @each $name, $value in $grid-breakpoints {
         @include for-size-bigger-than($name) {
             max-width: map-get($container-max-widths, $name);
