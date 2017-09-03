@@ -27,6 +27,7 @@
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
     "babel-preset-env": "^1.6.0",
+    "bourbon": "^4.3.4",
     "css-loader": "^0.28.4",
     "css-mqpacker": "^6.0.1",
     "cssnano": "^3.10.0",
@@ -53,7 +54,7 @@
   },
   "dependencies": {
     "jquery": "^3.2.1",
-    "webpack-jquery-ui": "^1.0.0",
-    "svgxuse": "^1.2.4"
+    "svgxuse": "^1.2.4",
+    "webpack-jquery-ui": "^1.0.0"
   }
 }

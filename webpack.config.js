@@ -3,7 +3,6 @@ const path = require("path");
 const webpack = require("webpack");
 const merge = require("webpack-merge");
 
-
 // Import plugins
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 
@@ -22,6 +21,7 @@ const pug = require("./webpack-configs/pug");
 
 // includePaths
 const normalizePaths = "./node_modules/normalize-scss/sass";
+const bourbonPaths = require("bourbon").includePaths;
 
 /**
  * Paths
@@ -81,7 +81,7 @@ module.exports = function(env) {
         return merge([
             common,
             uglifyJS(),
-            cssExtract([].concat(normalizePaths)),
+            cssExtract([].concat(normalizePaths, bourbonPaths)),
             images([
                     {
                         input: path.resolve(PATHS.assets, 'images'),
@@ -99,7 +99,7 @@ module.exports = function(env) {
         return merge([
             common,
             devServer(),
-            sass([].concat(normalizePaths)),
+            sass([].concat(normalizePaths, bourbonPaths)),
             css(),
             images([
                     {
