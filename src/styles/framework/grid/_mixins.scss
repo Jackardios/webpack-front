@@ -11,7 +11,7 @@
 @mixin for-size-smaller-than($size-name) {
     $min-width: nth(map-get($grid-breakpoints, $size-name), 1);
     @if (min-width != null) {
-        @media screen and (min-width: $min-width - 1) {
+        @media screen and (max-width: $min-width - 1) {
             @content;
         }
     }
