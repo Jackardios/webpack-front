@@ -1,16 +1,13 @@
 // plugins
 @import "bourbon";
+@import "neat";
 @import "normalize";
 
 // run normalize
 @include normalize();
 
-
 // base
 @import "base/*.scss";
-
-// framework
-@import "framework/*.scss";
 
 // components
 @import "components/*.scss";

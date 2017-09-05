@@ -1,6 +1,6 @@
 // mixins
-@mixin for-size-bigger-than($size-name) {
-    $min-width: nth(map-get($grid-breakpoints, $size-name), 1);
+@mixin for-size-bigger-than($size-name, $breakpoints: $grid-breakpoints) {
+    $min-width: nth(map-get($breakpoints, $size-name), 1);
     @if (min-width != null) {
         @media screen and (min-width: $min-width) {
             @content;
@@ -8,8 +8,8 @@
     }
 }
 
-@mixin for-size-smaller-than($size-name) {
-    $min-width: nth(map-get($grid-breakpoints, $size-name), 1);
+@mixin for-size-smaller-than($size-name, $breakpoints: $grid-breakpoints) {
+    $min-width: nth(map-get($breakpoints, $size-name), 1);
     @if (min-width != null) {
         @media screen and (max-width: $min-width - 1) {
             @content;
@@ -17,9 +17,9 @@
     }
 }
 
-@mixin for-size($size-name) {
-    $min-width: nth(map-get($grid-breakpoints, $size-name), 1);
-    $max-width: nth(map-get($grid-breakpoints, $size-name), 2);
+@mixin for-size($size-name, $breakpoints: $grid-breakpoints) {
+    $min-width: nth(map-get($breakpoints, $size-name), 1);
+    $max-width: nth(map-get($breakpoints, $size-name), 2);
     @if (max-width == null) {
         @media screen and (min-width: $min-width) {
             @content;

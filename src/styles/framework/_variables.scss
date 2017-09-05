@@ -1,5 +1,0 @@
-$all-headings: ();
-
-@for $i from 1 through 6 {
-    $all-headings: append($all-headings, h#{$i}, comma);
-}

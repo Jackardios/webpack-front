@@ -1,5 +1,5 @@
 // container
-%container {
+%outer-container {
     margin-left: auto;
     margin-right: auto;
     box-sizing: border-box;
@@ -12,10 +12,6 @@
     }
 }
 
-@mixin container($padding: none) {
-    @extend %container;
-    @if $padding != none {
-        padding-left: $padding;
-        padding-right: $padding;
-    }
+@mixin outer-container {
+    @extend %outer-container;
 }
