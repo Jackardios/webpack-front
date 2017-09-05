@@ -8,7 +8,7 @@ mixin head(data)
     meta(name="HandheldFriend", content="true")
     meta(http-equiv="X-UA-Compatible" content="IE=edge")
     
-    // fonts
-    each font in data.fonts
-        link(href=font.href rel=font.rel)
+    // links
+    each link in data.links
+        link(href=link.href rel=link.rel)
 
