@@ -1,10 +1,10 @@
-// plugins
-@import "bourbon";
-@import "neat";
+// normalize
 @import "normalize";
-
-// run normalize
 @include normalize();
+
+// libs and plugins
+@import "bourbon";
+@import "brigrid";
 
 // base
 @import "base/*.scss";
