@@ -1,0 +1,3 @@
+mixin svgSprite(svgObj, className)
+    svg(viewBox= svgObj.viewBox class= className)
+        use(xlink:href= svgObj.symbol)
