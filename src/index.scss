@@ -10,7 +10,7 @@
 @import "base/*.scss";
 
 // components
-@import "components/*.scss";
+@import "components/**/*.scss";
 
 // blocks
-@import "../blocks/**/*.scss";
+@import "blocks/**/*.scss";

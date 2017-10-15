@@ -32,7 +32,6 @@ const SASSIncludePaths = [].concat(normalizePaths, brigridPaths, bourbonPaths);
 const PATHS = {
     src: path.join(__dirname, "src"),
     dist: path.join(__dirname, "dist"),
-    scripts: path.join(__dirname, "src/scripts"),
     assets: path.join(__dirname, "src/assets"),
 };
 
@@ -43,7 +42,7 @@ const PATHS = {
 const common = merge([
     {
         entry: {
-            index: path.resolve(PATHS.scripts, "app.js"),
+            index: path.resolve(PATHS.src, "index.js"),
         },
         output: {
             path: PATHS.dist,
@@ -53,7 +52,7 @@ const common = merge([
             new HTMLWebpackPlugin({
                 filename: 'index.html',
                 chunks: ['index', 'common'],
-                template: path.resolve(PATHS.src, "pages/index.pug")
+                template: path.resolve(PATHS.src, "index.pug")
             }),
             new webpack.optimize.CommonsChunkPlugin({
                 name: 'common'
