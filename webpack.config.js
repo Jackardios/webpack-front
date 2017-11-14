@@ -77,24 +77,24 @@ const common = merge([
     pug(),
 ]);
 
+var imagesPaths = [
+    {
+        input: path.resolve(PATHS.assets, 'images'),
+        output: 'images/'
+    },
+    {
+        input: path.resolve(__dirname, "node_modules/jquery-ui"),
+        output: 'images/jquery-ui/'
+    }
+];
+
 module.exports = function(env) {
     if (env === "production") {
         return merge([
             common,
             uglifyJS(),
             cssExtract(SASSIncludePaths),
-            images([
-                    {
-                        input: path.resolve(PATHS.assets, 'images'),
-                        output: 'images/'
-                    },
-                    {
-                        input: path.resolve(__dirname, "node_modules/jquery-ui"),
-                        output: 'images/jquery-ui/'
-                    }
-                ],
-                true
-            ),
+            images(imagesPaths, true),
         ]);
     } else {
         return merge([
@@ -102,18 +102,7 @@ module.exports = function(env) {
             devServer(),
             sass(SASSIncludePaths),
             css(),
-            images([
-                    {
-                        input: path.resolve(PATHS.assets, 'images'),
-                        output: 'images/'
-                    },
-                    {
-                        input: path.resolve(__dirname, "node_modules/jquery-ui"),
-                        output: 'images/jquery-ui/'
-                    }
-                ],
-                false
-            ),
+            images(imagesPaths, false)
         ]);
     }
 }
