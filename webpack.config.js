@@ -92,16 +92,15 @@ module.exports = function(env) {
     if (env === "production") {
         return merge([
             common,
-            uglifyJS(),
-            cssExtract(SASSIncludePaths),
             images(imagesPaths, true),
+            cssExtract(SASSIncludePaths, true),
+            uglifyJS(),
         ]);
     } else {
         return merge([
             common,
             devServer(),
-            sass(SASSIncludePaths),
-            css(),
+            cssExtract(SASSIncludePaths, false),
             images(imagesPaths, false)
         ]);
     }
