@@ -19,12 +19,6 @@ const sass = require("./webpack-configs/sass");
 const css = require("./webpack-configs/css");
 const pug = require("./webpack-configs/pug");
 
-// includePaths
-const normalizePaths = "./node_modules/normalize-scss/sass";
-const brigridPaths = require("brigrid").includePaths;
-const bourbonPaths = require("bourbon").includePaths;
-const SASSIncludePaths = [].concat(normalizePaths, brigridPaths, bourbonPaths);
-
 /**
  * Paths
  * @type {Object}
@@ -33,6 +27,35 @@ const PATHS = {
     src: path.join(__dirname, "src"),
     dist: path.join(__dirname, "dist"),
     assets: path.join(__dirname, "src/assets"),
+};
+
+// includePaths
+var normalizePaths = "./node_modules/normalize-scss/sass";
+var brigridPaths = require("brigrid").includePaths;
+var bourbonPaths = require("bourbon").includePaths;
+var SASSIncludePaths = [].concat(
+    normalizePaths,
+    brigridPaths,
+    bourbonPaths
+);
+
+var imagesPaths = [
+    {
+        input: path.resolve(PATHS.assets, 'images'),
+        output: 'images/'
+    },
+    {
+        input: path.resolve(__dirname, "node_modules/jquery-ui"),
+        output: 'images/jquery-ui/'
+    }
+];
+
+var fontsPaths = [
+    path.resolve(PATHS.assets, 'fonts')
+];
+
+var spritesPaths = {
+    icons: path.resolve(PATHS.assets, 'icons')
 };
 
 /**
@@ -66,27 +89,12 @@ const common = merge([
             })
         ]
     },
-    importGlob(),
-    fonts([
-        path.resolve(PATHS.assets, 'fonts')
-    ]),
-    svgSprites({
-        icons: path.resolve(PATHS.assets, 'icons')
-    }),
-    babel(),
     pug(),
+    babel(),
+    importGlob(),
+    fonts(fontsPaths),
+    svgSprites(spritesPaths),
 ]);
-
-var imagesPaths = [
-    {
-        input: path.resolve(PATHS.assets, 'images'),
-        output: 'images/'
-    },
-    {
-        input: path.resolve(__dirname, "node_modules/jquery-ui"),
-        output: 'images/jquery-ui/'
-    }
-];
 
 module.exports = function(env) {
     if (env === "production") {
@@ -99,9 +107,9 @@ module.exports = function(env) {
     } else {
         return merge([
             common,
-            devServer(),
             cssExtract(SASSIncludePaths, false),
-            images(imagesPaths, false)
+            images(imagesPaths, false),
+            devServer(),
         ]);
     }
 }
