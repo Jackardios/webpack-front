@@ -9,8 +9,15 @@ module.exports = function(sassPaths, optimize = true) {
         options: {
             plugins: [
                 autoprefixer(),
-                cssMqpacker(),
-                cssNano()
+                cssMqpacker({
+                    sort: true
+                }),
+                cssNano({
+                    reduceIdents: false,
+                    discardComments: {
+                        removeAll: true
+                    }
+                })
             ]
         }
     };
