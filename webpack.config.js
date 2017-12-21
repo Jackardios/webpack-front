@@ -6,7 +6,7 @@ const merge = require("webpack-merge");
 // Import plugins
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 
-// Import partial configurations
+// Import configuration parts
 const cssExtract = require("./webpack-configs/css-extract");
 const svgSprites = require("./webpack-configs/svg-sprites");
 const importGlob = require("./webpack-configs/import-glob");
@@ -24,38 +24,36 @@ const pug = require("./webpack-configs/pug");
  * @type {Object}
  */
 const PATHS = {
-    src: path.join(__dirname, "src"),
-    dist: path.join(__dirname, "dist"),
-    assets: path.join(__dirname, "src/assets"),
+    src: path.join( __dirname, "src" ),
+    dist: path.join( __dirname, "dist" ),
+    assets: path.join( __dirname, "src/assets" )
 };
 
 // includePaths
-var normalizePaths = "./node_modules/normalize-scss/sass";
-var brigridPaths = require("brigrid").includePaths;
-var bourbonPaths = require("bourbon").includePaths;
-var SASSIncludePaths = [].concat(
-    normalizePaths,
-    brigridPaths,
-    bourbonPaths
+let SASSPaths = [
+    "./node_modules/normalize-scss/sass"
+].concat(
+    require("brigrid").includePaths,
+    require("bourbon").includePaths
 );
 
-var imagesPaths = [
+let imagesPaths = [
     {
-        input: path.resolve(PATHS.assets, 'images'),
+        input: path.resolve( PATHS.assets, 'images' ),
         output: 'images/'
     },
     {
-        input: path.resolve(__dirname, "node_modules/jquery-ui"),
+        input: path.resolve( __dirname, "node_modules/jquery-ui" ),
         output: 'images/jquery-ui/'
     }
 ];
 
-var fontsPaths = [
-    path.resolve(PATHS.assets, 'fonts')
+let fontsPaths = [
+    path.resolve( PATHS.assets, 'fonts' )
 ];
 
-var spritesPaths = {
-    icons: path.resolve(PATHS.assets, 'icons')
+let spritesPaths = {
+    icons: path.resolve( PATHS.assets, 'icons' )
 };
 
 /**
@@ -92,23 +90,23 @@ const common = merge([
     pug(),
     babel(),
     importGlob(),
-    fonts(fontsPaths),
-    svgSprites(spritesPaths),
+    fonts( fontsPaths ),
+    svgSprites( spritesPaths ),
 ]);
 
 module.exports = function(env) {
     if (env === "production") {
         return merge([
             common,
-            images(imagesPaths, true),
-            cssExtract(SASSIncludePaths, true),
+            images( imagesPaths, true ),
+            cssExtract( SASSPaths, true ),
             uglifyJS(),
         ]);
     } else {
         return merge([
             common,
-            cssExtract(SASSIncludePaths, false),
-            images(imagesPaths, false),
+            cssExtract( SASSPaths, false ),
+            images( imagesPaths, false ),
             devServer(),
         ]);
     }

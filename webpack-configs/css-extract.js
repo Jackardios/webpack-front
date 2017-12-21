@@ -3,8 +3,8 @@ const autoprefixer = require('autoprefixer');
 const cssNano = require('cssnano');
 const cssMqpacker = require('css-mqpacker');
 
-module.exports = function(sassPaths, optimize = true) {
-    var postCSS = {
+module.exports = function( sassPaths, optimize = true ) {
+    const postCSS = {
         loader: 'postcss-loader',
         options: {
             plugins: [
@@ -22,14 +22,14 @@ module.exports = function(sassPaths, optimize = true) {
         }
     };
     
-    var sassLoader = {
+    let sassLoader = {
         loader: 'sass-loader',
         options: { includePaths: sassPaths }
     };
 
-    var baseUse = ['css-loader'];
+    let baseUse = [ 'css-loader' ];
 
-    if (optimize) {
+    if ( optimize ) {
         baseUse.push(postCSS);
     }
 
@@ -49,7 +49,7 @@ module.exports = function(sassPaths, optimize = true) {
                     use: ExtractTextPlugin.extract({
                         publicPath: '../',
                         fallback: 'style-loader',
-                        use: baseUse.concat(sassLoader)
+                        use: baseUse.concat( sassLoader )
                     })
                 }
             ]
