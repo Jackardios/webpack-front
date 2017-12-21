@@ -1,0 +1,101 @@
+// Brigrid default grid overriding
+$default-grid: prepare-grid((
+    driver: flex,
+    columns: 12,
+    gutter: 30px,
+    collapse: true
+));
+
+.wrapper {
+    @include outer-container();
+    $padding: get-grid-value(gutter, $default-grid) / 2;
+    min-width: 320px;
+    padding: {
+        left: $padding;
+        right: $padding;
+    };
+}
+
+.grid-container {
+    @include grid-container-base();
+
+    $x-alignments: (
+        'start': flex-start, 
+        'end': flex-end, 
+        'center': center, 
+        'around': space-around, 
+        'between': space-between
+    );
+    @each $align-name, $align-value  in $x-alignments {
+        &--x-#{$align-name} {
+            justify-content: $align-value;
+        }
+    }
+    
+    $y-alignments: (
+        'start': flex-start, 
+        'end': flex-end, 
+        'center': center, 
+        'stretch': stretch,
+        'baseline': baseline
+    );
+    @each $align-name, $align-value  in $y-alignments {
+        &--y-#{$align-name} {
+            align-items: $align-value;
+        }
+    }
+}
+
+.grid-column {
+    @include grid-column-base();
+    @for $i from 1 through 12 {
+        &-#{$i} {
+            @include grid-column-width($i);
+            @each $bp-name, $bp-value in get-grid-value(breakpoints, $default-grid) {
+                &--#{$bp-name} {
+                    @if ($bp-name == xs) {
+                        @include media-breakpoint-before(sm) {
+                            @include grid-column-width($i);
+                        }
+                    } @else {
+                        @include media-breakpoint-from($bp-name) {
+                            @include grid-column-width($i);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.visible {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+@each $bp-name, $bp-value in get-grid-value(breakpoints, $default-grid) {
+    @if ($bp-name == xs) {
+        @include media-breakpoint-before(sm) {
+            .visible--#{$bp-name} {
+                display: block;
+            }
+
+            .hidden--#{$bp-name} {
+                display: none;
+            }
+        }
+    } @else {
+        @include media-breakpoint-from($bp-name) {
+            .visible--#{$bp-name} {
+                display: block;
+            }
+
+            .hidden--#{$bp-name} {
+                display: none;
+            }
+        }
+    }
+}
