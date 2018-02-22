@@ -2,18 +2,47 @@
 $default-grid: prepare-grid((
     driver: flex,
     columns: 12,
-    gutter: 30px,
+    gutter: 24px,
     collapse: true
 ));
 
+$grid-breakpoints: get-grid-value(breakpoints, $default-grid);
+$grid-half-gutter: get-grid-value(gutter, $default-grid) / 2;
+
+.wrapper-fluid,
+.wrapper {
+    min-width: 320px;
+    position: relative;
+    padding: {
+        left: $grid-half-gutter;
+        right: $grid-half-gutter;
+    };
+}
+
+.wrapper-fluid {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+}
+
 .wrapper {
     @include outer-container();
-    $padding: get-grid-value(gutter, $default-grid) / 2;
-    min-width: 320px;
-    padding: {
-        left: $padding;
-        right: $padding;
-    };
+
+    &--collapsed-mobile {
+        overflow-x: hidden;
+        @include media-breakpoint-before( md ) {
+            padding: {
+                left: 0;
+                right: 0;
+            };
+        }
+    }
+
+    &--small {
+        max-width: 768px !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 .grid-container {
@@ -44,14 +73,21 @@ $default-grid: prepare-grid((
             align-items: $align-value;
         }
     }
+
+    &--no-gutter {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
 }
 
 .grid-column {
     @include grid-column-base();
+    @extend %bg-cover;
+    
     @for $i from 1 through 12 {
         &-#{$i} {
             @include grid-column-width($i);
-            @each $bp-name, $bp-value in get-grid-value(breakpoints, $default-grid) {
+            @each $bp-name, $bp-value in $grid-breakpoints {
                 &--#{$bp-name} {
                     @if ($bp-name == xs) {
                         @include media-breakpoint-before(sm) {
@@ -66,35 +102,62 @@ $default-grid: prepare-grid((
             }
         }
     }
+
+    &--flex {
+        flex: 1;
+    }
+
+    &--no-gutter {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    // &--large-gutter {
+    //     padding: 32px !important;
+
+    //     @include media-breakpoint-from( lg ) {
+    //         padding: 180px !important;
+    //     }
+    // }
 }
 
 .visible {
-    display: block;
+    display: block !important;
 }
 
 .hidden {
-    display: none;
+    display: none !important;
+
+    @each $bp-name, $bp-value in $grid-breakpoints {
+        @if ($bp-name != xs) {
+            @include media-breakpoint-before($bp-name) {
+                &--before-#{$bp-name} {
+                    display: none !important;
+                }
+            }
+        }
+    }
 }
 
-@each $bp-name, $bp-value in get-grid-value(breakpoints, $default-grid) {
+@each $bp-name, $bp-value in $grid-breakpoints {
     @if ($bp-name == xs) {
         @include media-breakpoint-before(sm) {
             .visible--#{$bp-name} {
-                display: block;
+                display: block !important;
             }
 
             .hidden--#{$bp-name} {
-                display: none;
+                display: none !important;
             }
         }
     } @else {
         @include media-breakpoint-from($bp-name) {
             .visible--#{$bp-name} {
-                display: block;
+                display: block !important;
             }
 
             .hidden--#{$bp-name} {
-                display: none;
+                display: none !important;
             }
         }
     }

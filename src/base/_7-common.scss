@@ -1,0 +1,99 @@
+/* base */
+$global-bg-color: #fff;
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: $global-bg-color;
+    color: $color-dark;
+    font-family: $text-font;
+    font-weight: normal;
+    font-size: $base-font--mobile;
+
+    @include media-breakpoint-from( md ) {
+        font-size: $base-font;
+    }
+}
+
+body {
+    min-width: 320px;
+}
+
+p {
+    font-family: $text-font;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+
+/* headinds */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $title-font;
+}
+
+
+h1 {
+    @extend %font-size-1;
+}
+
+h2 {
+    @extend %font-size-2;
+}
+
+h3 {
+    @extend %font-size-3;
+}
+
+h4 {
+    @extend %font-size-4;
+}
+
+
+/* controls */
+a,
+input,
+textarea,
+button,
+select,
+option,
+label {
+    font-family: $buttons-font;
+}
+
+a {
+    text-decoration: none;
+    color: $color-accent;
+    transition: color .24s ease;
+}
+
+/* list */
+// ul {
+//     margin: 0;
+//     padding: 0 0 0 12px;
+//     list-style: none;
+
+//     li {
+//         margin: 0;
+//         padding: 12px 12px 12px 24px;
+//         position: relative;
+
+//         &::before {
+//             content: '';
+//             display: block;
+//             position: absolute;
+//             top: 50%;
+//             left: 0;
+//             width: 5px;
+//             height: 5px;
+//             margin-top: -2.5px;
+//             background-color: $color-accent;
+//             border-radius: 50%;
+//         }
+//     }
+// }

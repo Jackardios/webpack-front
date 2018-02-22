@@ -1,0 +1,25 @@
+.h-menu {
+    white-space: nowrap;
+    overflow-x: auto;
+
+    ul {
+        display: flex;
+        flex-wrap: nowrap;
+        height: 100%;
+
+        &,
+        & > li {
+            list-style: none;
+            list-style-image: none;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        & > li {
+            flex-grow: 0;
+            white-space: nowrap;
+            height: 100%;
+        }
+    }
+}

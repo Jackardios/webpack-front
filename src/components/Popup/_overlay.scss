@@ -1,0 +1,236 @@
+$animation-duration: .48s;
+$line: 1px solid rgba(0, 0, 0, .06);
+
+@keyframes translateFromTop {
+    0% {
+        transform: translateY(-64px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1002;
+    opacity: 1;
+    overflow-y: auto;
+    background-color: rgba(0, 0, 0, .5);
+    animation: fadeIn .36s ease;
+    transition: opacity .36s ease;
+    
+    &.active {
+        display: block;
+    }
+
+    &--center {
+        &.active {
+            display: flex;
+        }
+
+        align-items: center;
+        justify-content: center;
+    }
+
+    &.hiding {
+        opacity: 0;
+    }
+
+    &.hiding &__container,
+    &.hiding &__popup-container {
+        transform: translateY(-64px);
+    }
+
+    &__container,
+    &__popup-container {
+        transform: translateY(0);
+        animation: translateFromTop #{$animation-duration} ease;
+        transition: transform #{$animation-duration} ease;
+    }
+
+    &__container {
+        @extend %bg-cover;
+        padding: 12px 0;
+        width: 100%;
+        min-height: 100%;
+    }
+
+    &__popup-container {
+        width: 100%;
+        max-height: 100%;
+        padding: 12px 0 32px 0;
+    }
+
+    &-header {
+        padding: 0 0 12px 0;
+        border-bottom: $line;
+
+        &__logo {
+            width: 118px;
+            height: auto;
+        }
+
+        &__link {
+            @extend %font-size-4;
+            color: $color-dark;
+            transition: color .24s ease;
+
+            i {
+                padding: 0 12px;
+            }
+
+            &:hover {
+                color: $color-accent;
+            }
+        }
+    }
+
+    &-close-btn {
+        $close-btn-line-height: 4px;
+
+        cursor: pointer;
+        display: inline-block;
+        vertical-align: middle;
+        padding: 12px 0 12px 0;
+        z-index: 2;
+        outline: none;
+    
+        &:focus &__line,
+        &:hover &__line {
+            box-shadow: 0 0 24px $color-accent;
+            background-color: $color-accent;
+        }
+    
+        &--dark &__line {
+            background-color: $color-dark;
+        }
+    
+        &__box {
+            @extend %inline-block-middle;
+            position: relative;
+            z-index: 2;
+            width: 32px;
+            height: 24px;
+        }
+    
+        &__line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: $close-btn-line-height;
+            border-radius: $close-btn-line-height;
+            background-color: #fff;
+            transform-origin: 50%;
+            box-shadow: 0 0 0 $color-accent;
+            transition: all .32s ease;
+    
+            &:nth-child(1) {
+                top: 50%;
+                transform: rotate(45deg);
+                margin-top: - $close-btn-line-height;
+            }
+    
+            &:nth-child(2) {
+                bottom: 50%;
+                transform: rotate(-45deg);
+            }
+        }
+    }
+
+    &-content {
+        padding: 24px 0;
+
+        &:not(:last-child) {
+            border-bottom: $line;
+        }
+    }
+
+    &__title {
+        @extend %font-size-3;
+        display: block;
+        text-align: center;
+        margin: 32px 0 24px 0;
+    }
+
+    &-form {
+        &__description {
+            @extend %font-size-6;
+        }
+
+        &__btn-container {
+            margin-top: 32px;
+        }
+    }
+}
+
+.popup {
+    border-radius: 3px;
+    position: relative;
+    margin: 12px auto;
+    background: #fff;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+
+    &--large {
+        max-width: 768px;
+    }
+
+    &--small {
+        max-width: 576px;
+    }
+
+    &__header {
+        position: relative;
+        min-height: 50px;
+        border-bottom: 1px solid $color-gray--light;
+    }
+
+    &__title {
+        color: $color-dark;
+        padding: 20px 65px 20px 20px;
+        font-weight: bold;
+    }
+
+    &__close-btn {
+        position: absolute;
+        right: 0;
+        top: 0;
+        border: none;
+        border-radius: 0 0 0 25px;
+        padding: 20px 15px;
+        font-size: 1.15rem;
+        color: $color-dark;
+        transition: color .12s ease;
+        &:hover {
+            color: $color-accent;
+        }
+    }
+
+    &__content {
+        padding: 20px;
+    }
+}
+
+/* id specific styles */
+#callrequest-popup {
+    z-index: 1003;
+}
+
+/* wp specific styles */
+.admin-bar .overlay {
+    margin-top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+    .admin-bar .overlay {
+        margin-top: 46px;
+    }
+}
