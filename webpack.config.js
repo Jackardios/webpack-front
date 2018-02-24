@@ -29,9 +29,15 @@ const PATHS = {
     assets: path.join( __dirname, "src/assets" )
 };
 
-let imagesPaths = [ path.resolve( PATHS.assets, 'images' ) ];
-let fontsPaths = [ path.resolve( PATHS.assets, 'fonts' ) ];
-let spritesPaths = { icons: path.resolve( PATHS.assets, 'icons' ) };
+let imagesPaths = [
+    path.resolve( PATHS.assets, 'images' )
+];
+let fontsPaths = [
+    path.resolve( PATHS.assets, 'fonts' )
+];
+let spritesPaths = {
+    icons: path.resolve( PATHS.assets, 'icons' )
+};
 
 /**
  * Common configuration
@@ -39,12 +45,13 @@ let spritesPaths = { icons: path.resolve( PATHS.assets, 'icons' ) };
  */
 const common = merge([
     {
+        context: PATHS.src,
         entry: {
             index: path.resolve(PATHS.src, "index.js"),
         },
         output: {
             path: PATHS.dist,
-            filename: "js/[name].[hash].js"
+            filename: "js/[name].[hash].js",
         },
         plugins: [
             new HTMLWebpackPlugin({

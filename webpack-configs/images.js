@@ -1,3 +1,6 @@
+const path = require("path");
+const nodeModulesPath = path.resolve( __dirname, "../node_modules" );
+
 module.exports = function(paths, optimize = true) {
     let ruleForAssets = {
         test: /\.(jpe?g|png|gif|svg)$/i,
@@ -7,7 +10,7 @@ module.exports = function(paths, optimize = true) {
                 loader: 'url-loader',
                 options: {
                     limit: 4096,
-                    name: '[path][name].[ext]',
+                    name: '[path][name]_[hash].[ext]',
                 },
             }
         ]
@@ -15,13 +18,13 @@ module.exports = function(paths, optimize = true) {
 
     let ruleForVendor = {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        include: '/node_modules/',
+        include: nodeModulesPath,
         use: [
             {
                 loader: 'url-loader',
                 options: {
                     limit: 4096,
-                    name: '[path][name].[ext]',
+                    name: '[name]_[hash].[ext]',
                 },
             }
         ]
