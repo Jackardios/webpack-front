@@ -29,32 +29,9 @@ const PATHS = {
     assets: path.join( __dirname, "src/assets" )
 };
 
-// includePaths
-let SASSPaths = [
-    "./node_modules/normalize-scss/sass"
-].concat(
-    require("brigrid").includePaths,
-    require("bourbon").includePaths
-);
-
-let imagesPaths = [
-    {
-        input: path.resolve( PATHS.assets, 'images' ),
-        output: 'images/'
-    },
-    {
-        input: path.resolve( __dirname, "node_modules/jquery-ui" ),
-        output: 'images/jquery-ui/'
-    }
-];
-
-let fontsPaths = [
-    path.resolve( PATHS.assets, 'fonts' )
-];
-
-let spritesPaths = {
-    icons: path.resolve( PATHS.assets, 'icons' )
-};
+let imagesPaths = [ path.resolve( PATHS.assets, 'images' ) ];
+let fontsPaths = [ path.resolve( PATHS.assets, 'fonts' ) ];
+let spritesPaths = { icons: path.resolve( PATHS.assets, 'icons' ) };
 
 /**
  * Common configuration
@@ -99,13 +76,13 @@ module.exports = function(env) {
         return merge([
             common,
             images( imagesPaths, true ),
-            cssExtract( SASSPaths, true ),
+            cssExtract( true ),
             uglifyJS(),
         ]);
     } else {
         return merge([
             common,
-            cssExtract( SASSPaths, false ),
+            cssExtract( false ),
             images( imagesPaths, false ),
             devServer(),
         ]);

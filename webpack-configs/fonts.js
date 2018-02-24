@@ -1,21 +1,34 @@
-module.exports = function(paths) {
+module.exports = function (paths) {
     return {
         module: {
             rules: [
                 {
-                    test: /\.(eot|svg|ttf|woff|woff2)$/i,
+                    test: /\.(ttf|eot|woff2?|svg)$/,
                     include: paths,
                     use: [
                         {
-                            loader: 'file-loader',
+                            loader: 'url-loader',
                             options: {
-                                outputPath: 'fonts/',
-                                name: '[name].[ext]'
-                            }
+                                limit: 4096,
+                                name: '[path][name].[ext]',
+                            },
                         }
                     ]
-
-                }
+                },
+                {
+                    test: /\.(ttf|eot|woff2?|svg)$/,
+                    include: /node_modules/,
+                    use: [
+                        {
+                            loader: 'url-loader',
+                            options: {
+                                limit: 4096,
+                                outputPath: 'vendor/',
+                                name: '[path][name].[ext]',
+                            },
+                        }
+                    ]
+                },
             ]
         }
     };

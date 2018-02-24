@@ -1,9 +1,10 @@
 // normalize
-@import "normalize";
-@include normalize();
+@import "~normalize.css/normalize.css";
 
 // libs and plugins
-@import "brigrid";
+$fa-font-path: '~font-awesome/fonts';
+@import "~font-awesome/scss/font-awesome.scss";
+@import "~brigrid/core/brigrid";
 
 // base
 @import "base/*.scss";

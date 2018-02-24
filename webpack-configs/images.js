@@ -1,33 +1,47 @@
-module.exports = function(paths = [], optimize = true) {
-    let config = {
-        module: {
-            rules: []
-        }
+module.exports = function(paths, optimize = true) {
+    let ruleForAssets = {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        include: paths,
+        use: [
+            {
+                loader: 'url-loader',
+                options: {
+                    limit: 4096,
+                    name: '[path][name].[ext]',
+                },
+            }
+        ]
     };
 
-    paths.forEach(function(pathObj) {
-        let rule = {
-            test: /\.(jpe?g|png|gif|svg)$/i,
-            include: pathObj.input,
-            use: [
-                {
-                    loader: 'file-loader',
-                    options: {
-                        outputPath: pathObj.output,
-                        name: '[name].[ext]'
-                    }
-                }
+    let ruleForVendor = {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        include: '/node_modules/',
+        use: [
+            {
+                loader: 'url-loader',
+                options: {
+                    limit: 4096,
+                    name: '[path][name].[ext]',
+                },
+            }
+        ]
+    };
+    
+    if (optimize) {
+        ruleForAssets.use.push({
+            loader: 'image-webpack-loader'
+        });
+        ruleForVendor.use.push({
+            loader: 'image-webpack-loader'
+        });
+    }
+
+    return {
+        module: {
+            rules: [
+                ruleForAssets,
+                ruleForVendor,
             ]
-        };
-
-        if (optimize) {
-            rule.use.push({
-                loader: 'image-webpack-loader'
-            });
         }
-
-        config.module.rules.push(rule);
-    })
-
-    return config;
+    };
 }

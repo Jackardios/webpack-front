@@ -39,7 +39,6 @@
     "image-webpack-loader": "^3.6.0",
     "import-glob": "^1.5.0",
     "node-sass": "^4.7.2",
-    "normalize-scss": "^7.0.1",
     "postcss-loader": "^2.1.0",
     "pug": "^2.0.0-rc.2",
     "pug-loader": "^2.3.0",
@@ -54,7 +53,9 @@
     "webpack-merge": "^4.1.1"
   },
   "dependencies": {
+    "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
+    "normalize.css": "^8.0.0",
     "svgxuse": "^1.2.6"
   }
 }

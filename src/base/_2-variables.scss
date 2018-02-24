@@ -3,7 +3,7 @@ $material-shadow--big: 0 8px 20px rgba(0, 0, 0, .16);
 $wind-easing: cubic-bezier(0.110, 0.815, 0.195, 0.950);
 
 // fonts
-$text-font: "...", sans-serif;
+$text-font: "Open Sans", sans-serif;
 $logo-font: $text-font;
 $title-font: $text-font;
 $buttons-font: $text-font;
@@ -12,7 +12,7 @@ $buttons-font: $text-font;
 $base-font: 16px;
 $base-font--mobile: 14px;
 
-$font-size-1: 5rem;
+$font-size-1: 4rem;
 $font-size-1--tablet: 3.5rem;
 $font-size-1--mobile: 2.75rem;
 %font-size-1 {
@@ -30,9 +30,9 @@ $font-size-1--mobile: 2.75rem;
     }
 }
 
-$font-size-2: 2.5rem;
-$font-size-2--tablet: 2.25rem;
-$font-size-2--mobile: 2rem;
+$font-size-2: 3rem;
+$font-size-2--tablet: 2.5rem;
+$font-size-2--mobile: 2.25rem;
 %font-size-2 {
     font-size: $font-size-2--mobile;
     line-height: 1.15384615;
