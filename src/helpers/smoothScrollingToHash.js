@@ -27,7 +27,7 @@ export default (options) => {
                 setHash(hash);
             });
         } else {
-            if (hash === "#contact-form") {
+            if (hash === "#contact-form" && window.popupObj) {
                 window.popupObj.show('callback-popup');
             }
             setHash(hash);

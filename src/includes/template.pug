@@ -1,5 +1,6 @@
 //- includes
 include svgSprite
+include fa
 include ../blocks/head/head
 
 //- template
@@ -9,15 +10,15 @@ html(lang="ru")
         head
             +head({
                 /* "title": "Test layout", */
-                "author": "Salahutdinov Salavat",
                 /* "description": "Pug+SCSS layout", */
                 "links": [
-                    /* {
-                        "href": "https://fonts.googleapis.com/css?family=Lato:300,400,400i,500,700,900",
-                        "rel": "stylesheet"
-                    } */
+                    {
+                        "href": "dns-prefetch",
+                        "rel": "//code.jquery.com"
+                    }
                 ]
             })
     block body
         body
             block content
+            script(src="https://code.jquery.com/jquery-3.3.1.min.js")

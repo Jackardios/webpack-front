@@ -1,11 +1,51 @@
 $input-padding-top: 24px;
-$input-line-neutral-color: $color-gray--dark;
-$input-invalid-color: $color-error;
-$input-valid-color: $color-success;
-$input-label-color: $color-gray--dark;
-$input-focus-color: $color-accent;
+$input-line-neutral-color: #fff;
+$input-invalid-color: #fff;
+$input-valid-color: #fff;
+$input-label-color: #fff;
+$input-focus-color: #fff;
 
 .input {
+    position: relative;
+    opacity: .4;
+    padding: 0 24px;
+    transition: opacity .36s ease;
+
+    &__label {
+        margin: 0 24px;
+    }
+
+    &:hover,
+    &.active {
+        opacity: 1;
+
+        &::before {
+            transform: translateX(-6px);
+        }
+
+        &::after {
+            transform: translateX(6px);
+        }
+    }
+
+    &::before {
+        content: '[';
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 3rem;
+        transition: transform .24s ease;
+    }
+
+    &::after {
+        content: ']';
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 3rem;
+        transition: transform .24s ease;
+    }
+
     &--fullwidth {
         display: block;
         width: 100%;
@@ -13,7 +53,6 @@ $input-focus-color: $color-accent;
 
     &--text {
         display: inline-block;
-        position: relative;
         margin-top: 16px;
     }
 
@@ -26,12 +65,12 @@ $input-focus-color: $color-accent;
         font-size: 1rem;
         color: $input-label-color;
         transform-origin: 0;
-        transition: all .24s ease;
         pointer-events:none;
         z-index: 1;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        transition: all .24s ease;
     }
 
 

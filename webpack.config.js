@@ -11,6 +11,7 @@ const cssExtract = require("./webpack-configs/css-extract");
 const svgSprites = require("./webpack-configs/svg-sprites");
 const importGlob = require("./webpack-configs/import-glob");
 const devServer = require("./webpack-configs/dev-server");
+const copyFiles = require("./webpack-configs/copy-files");
 const uglifyJS = require("./webpack-configs/uglifyJS");
 const images = require("./webpack-configs/images");
 const fonts = require("./webpack-configs/fonts");
@@ -53,29 +54,28 @@ const common = merge([
             path: PATHS.dist,
             filename: "js/[name].[hash].js",
         },
+        externals: {
+            jquery: 'jQuery'
+        },
         plugins: [
             new HTMLWebpackPlugin({
                 filename: 'index.html',
-                chunks: ['index', 'common'],
+                chunks: ['index'],
                 template: path.resolve(PATHS.src, "index.pug")
             }),
-            new webpack.optimize.CommonsChunkPlugin({
-                name: 'common'
-            }),
             new webpack.ProvidePlugin({
-                svgxuse: 'svgxuse',
                 $: 'jquery',
                 jQuery: 'jquery',
                 'window.$': 'jquery',
-                'window.jQuery': 'jquery'
+                'window.jQuery': 'jquery',
             })
         ]
     },
     pug(),
-    babel(),
     importGlob(),
     fonts( fontsPaths ),
     svgSprites( spritesPaths ),
+    devServer(),
 ]);
 
 module.exports = function(env) {
@@ -84,6 +84,7 @@ module.exports = function(env) {
             common,
             images( imagesPaths, true ),
             cssExtract( true ),
+            babel(),
             uglifyJS(),
         ]);
     } else {
@@ -91,7 +92,6 @@ module.exports = function(env) {
             common,
             cssExtract( false ),
             images( imagesPaths, false ),
-            devServer(),
         ]);
     }
 }

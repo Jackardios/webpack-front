@@ -1,5 +1,5 @@
 $animation-duration: .48s;
-$line: 1px solid rgba(0, 0, 0, .06);
+$line: 1px solid rgba($color-black, .06);
 
 @keyframes translateFromTop {
     0% {
@@ -23,7 +23,7 @@ $line: 1px solid rgba(0, 0, 0, .06);
     z-index: 1002;
     opacity: 1;
     overflow-y: auto;
-    background-color: rgba(0, 0, 0, .5);
+    background-color: rgba($color-black, .5);
     animation: fadeIn .36s ease;
     transition: opacity .36s ease;
     
@@ -216,21 +216,5 @@ $line: 1px solid rgba(0, 0, 0, .06);
 
     &__content {
         padding: 20px;
-    }
-}
-
-/* id specific styles */
-#callrequest-popup {
-    z-index: 1003;
-}
-
-/* wp specific styles */
-.admin-bar .overlay {
-    margin-top: 32px;
-}
-
-@media screen and (max-width: 782px) {
-    .admin-bar .overlay {
-        margin-top: 46px;
     }
 }

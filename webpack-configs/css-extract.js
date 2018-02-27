@@ -31,7 +31,7 @@ module.exports = function( optimize = true ) {
     if ( optimize ) {
         baseUse.push(postCSS);
     }
-
+    
     return {
         module: {
             rules: [
