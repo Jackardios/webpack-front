@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+/// Sets column width properties based on the number of occupied columns and grid settings
+///
+/// @name Grid column width
+///
+/// @group components
+///
+/// @argument {number (unitless) | string ('hide', 'hidden', 'auto', 'flex') | map} $columns
+///     The number of columns that the item should occupy.
+///     It can be indicated by:
+///     1) a number of columns
+///     2) a string ('hide' or 'hidden' - that hides an element, 'auto', 'flex')
+///     3) or a media map where each of its keys points to a breakpoint,
+///     and the value specifies the number of columns that the item should occupy
+///         (Example: (sm: flex, md: auto, lg: 6, xl: hidden))
+///
+/// @argument {map} $grid [$default-grid]
+///     The grid map settings (breakpoints, columns, driver) will be used to generate a column width.
+///     By default, the global '$default-grid' will be used.
+///
+/// @example scss
+///     $example-grid: prepare-grid((
+///         driver: flex,
+///         columns: 12,
+///         breakpoints: (
+///             xs: 0,
+///             sm: 576px,
+///             md: 768px,
+///             lg: 992px,
+///             xl: 1200px,
+///             xx: 1600px
+///         )
+///     ));
+///     .element {
+///         @include grid-column-width(
+///             $columns: (
+///                 sm: 12,
+///                 lg: 6,
+///                 xl: hidden
+///             ),
+///             $grid: $example-grid
+///         );
+///     }
+///
+/// @example css
+///     .element {
+///         display: block;
+///         max-width: 100%;
+///         flex: 0 0 100%;
+///     }
+///     @media only screen and (min-width: 992px) {
+///         .element {
+///             display: block;
+///             max-width: 50%;
+///             flex: 0 0 50%;
+///         }
+///     }
+///     @media only screen and (min-width: 1200px) {
+///         .element {
+///             display: none;
+///         }
+///     }
+
+@mixin grid-column-width($columns, $grid: $default-grid) {
+    $driver: get-grid-value(driver, $grid);
+    $columns: _convert-to-media-map($columns, $grid);
+
+    @include _for-media-map($columns, $grid) {
+        $bp-columns: $_for-media-map-value;
+        @if (($bp-columns == hidden) or ($bp-columns == hide) or ($bp-columns == 0)) {
+            display: none;
+        } @else if ($bp-columns == auto) {
+            flex: 0 0 auto;
+            width: auto;
+            max-width: none;
+        } @else if ($bp-columns == flex) {
+            @if ($driver == flex) {
+                flex-basis: 0;
+                flex-grow: 1;
+                max-width: 100%;
+            } @else {
+                @warn "[Brigrid]: Flex column width supported only in 'flex' driver!";
+            }
+        } @else {
+            display: block;
+            $width: _column-width($bp-columns, $grid);
+            @if ($driver == flex) {
+                flex: 0 0 $width;
+            }
+            max-width: $width;
+        }
+    }
+}

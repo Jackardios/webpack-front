@@ -22,8 +22,6 @@ body {
 
 p {
     font-family: $text-font;
-    font-size: 1rem;
-    line-height: 1.5;
 }
 
 
@@ -54,6 +52,14 @@ h4 {
     @extend %font-size-4;
 }
 
+h5 {
+    @extend %font-size-5;
+}
+
+h6 {
+    @extend %font-size-6;
+}
+
 
 /* controls */
 a,
@@ -71,29 +77,3 @@ a {
     color: $color-accent;
     transition: color .24s ease;
 }
-
-/* list */
-// ul {
-//     margin: 0;
-//     padding: 0 0 0 12px;
-//     list-style: none;
-
-//     li {
-//         margin: 0;
-//         padding: 12px 12px 12px 24px;
-//         position: relative;
-
-//         &::before {
-//             content: '';
-//             display: block;
-//             position: absolute;
-//             top: 50%;
-//             left: 0;
-//             width: 5px;
-//             height: 5px;
-//             margin-top: -2.5px;
-//             background-color: $color-accent;
-//             border-radius: 50%;
-//         }
-//     }
-// }

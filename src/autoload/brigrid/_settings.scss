@@ -1,0 +1,22 @@
+$_default-grid-settings: ( // don't change this map!
+    driver: flex,
+    columns: 12,
+    gutter: 24px,
+    reversed: false,
+    breakpoints: (
+        xs: 0, // Extra small screen
+        sm: 576px, // Small screen
+        md: 768px, // Medium screen
+        lg: 992px, // Large screen
+        xl: 1200px, // Extra large screen
+    ),
+    _breakpoints-sorting: min,
+    outer-container-widths: (
+        md: 768px, // Medium screen
+        lg: 960px, // Large screen
+        xl: 1170px, // Extra large screen
+    ),
+    // outer-container-offset: (gutter / 2)
+);
+
+$default-grid: $_default-grid-settings !default;

@@ -1,51 +1,11 @@
 $input-padding-top: 24px;
-$input-line-neutral-color: #fff;
-$input-invalid-color: #fff;
-$input-valid-color: #fff;
-$input-label-color: #fff;
-$input-focus-color: #fff;
+$input-line-neutral-color: $color-primary;
+$input-invalid-color: $color-error;
+$input-valid-color: $color-primary;
+$input-label-color: $color-gray--dark;
+$input-focus-color: $color-accent;
 
 .input {
-    position: relative;
-    opacity: .4;
-    padding: 0 24px;
-    transition: opacity .36s ease;
-
-    &__label {
-        margin: 0 24px;
-    }
-
-    &:hover,
-    &.active {
-        opacity: 1;
-
-        &::before {
-            transform: translateX(-6px);
-        }
-
-        &::after {
-            transform: translateX(6px);
-        }
-    }
-
-    &::before {
-        content: '[';
-        position: absolute;
-        top: 0;
-        left: 0;
-        font-size: 3rem;
-        transition: transform .24s ease;
-    }
-
-    &::after {
-        content: ']';
-        position: absolute;
-        top: 0;
-        right: 0;
-        font-size: 3rem;
-        transition: transform .24s ease;
-    }
-
     &--fullwidth {
         display: block;
         width: 100%;
@@ -53,6 +13,7 @@ $input-focus-color: #fff;
 
     &--text {
         display: inline-block;
+        position: relative;
         margin-top: 16px;
     }
 
@@ -65,12 +26,12 @@ $input-focus-color: #fff;
         font-size: 1rem;
         color: $input-label-color;
         transform-origin: 0;
+        transition: all .24s ease;
         pointer-events:none;
         z-index: 1;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        transition: all .24s ease;
     }
 
 
@@ -80,15 +41,18 @@ $input-focus-color: #fff;
         top: 0;
     }
 
-    input {
+    input,
+    textarea {
         display: block;
         width: 100%;
+        min-width: 100%;
+        max-width: 100%;
         padding: $input-padding-top 0 8px 0;
         background: none;
         outline: none;
         border: none;
         border-bottom: 1px solid $input-line-neutral-color;
-        font-size: ms(0);
+        font-size: 1rem;
         transition: border-color .24s ease;
 
         &:focus {
@@ -96,8 +60,7 @@ $input-focus-color: #fff;
         }
     }
 
-    &.invalid input,
-    input:invalid {
+    &.invalid input {
         border-color: $input-invalid-color;
     }
 
@@ -116,4 +79,45 @@ $input-focus-color: #fff;
 
 .hidden-input {
     @extend %hidden-input;
+}
+
+.numeric-input {
+    display: inline-block;
+    padding: 12px 0;
+    
+    &__plus,
+    &__minus {
+        @extend %inline-block-middle;
+        cursor: pointer;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 50%;
+        text-align: center;
+        background-color: $color-dark;
+        color: #fff;
+        transition: all .24s ease;
+
+        &:hover {
+            background-color: $color-primary;
+        }
+    }
+
+    &__input {
+        @extend %inline-block-middle;
+        background: none;
+        border: none;
+        color: $color-primary;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.25rem;
+        width: 80px;
+        padding-left: 12px;
+
+        &:hover {
+            background-color: $color-gray--light;
+        }
+    }
 }

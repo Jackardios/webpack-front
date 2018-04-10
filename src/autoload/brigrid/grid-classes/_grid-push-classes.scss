@@ -1,0 +1,38 @@
+@mixin grid-push-classes($options: $grid-classes-default-options, $grid: $default-grid) {
+    $default-options: $grid-classes-default-options;
+    $prefix: get-map-value('prefix', $options, $default-options);
+    $names-delimiter: get-map-value('names-delimiter', $options, $default-options);
+    $breakpoint-delimiter: get-map-value('breakpoint-delimiter', $options, $default-options);
+    $components: get-map-value('components', $options);
+    $columns: get-grid-value('columns', $grid);
+
+    $default-names: get-map-value('names', $default-options);
+    $names: get-map-value('names', $options, $default-options);
+    $push-name: get-map-value('push', $names, $default-names);
+
+    @for $i from 1 through $columns {
+        $class-name: list-to-string(($prefix, $push-name, $i), $names-delimiter);
+        .#{$class-name} {
+            @include grid-push(
+                $columns: $i,
+                $grid: $grid
+            );
+        }
+    }
+
+    @if (index($components, 'push-media') != null) {
+        @include grid-media($grid: $grid) {
+            @for $i from 1 through $columns {
+                $class-name: list-to-string(($prefix, $push-name, $i), $names-delimiter)
+                             + $breakpoint-delimiter
+                             + $_grid-media-bp-name;
+                .#{$class-name} {
+                    @include grid-push(
+                        $columns: $i,
+                        $grid: $grid
+                    );
+                }
+            }
+        }
+    }
+}

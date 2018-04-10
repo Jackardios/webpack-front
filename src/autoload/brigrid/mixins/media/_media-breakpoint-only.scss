@@ -1,0 +1,74 @@
+@charset "UTF-8";
+
+/// Creates a media query between the breakpoint's minimum and maximum widths
+/// and applies @content to it.
+///
+/// @name Media breakpoint only
+///
+/// @group helpers
+///
+/// @argument {string} $bp-name
+///     The breakpoint name, the minimum and maximum width of which will be used to create a media query.
+///
+/// @argument {map} $grid [$default-grid]
+///     The grid map settings (breakpoints) will be used to create a media query.
+///     By default, the global '$default-grid' will be used.
+///
+/// @example scss
+///     $example-grid: prepare-grid((
+///         breakpoints: (
+///             xs: 0, // Extra small screen
+///             sm: 576px, // Small screen
+///             md: 768px, // Medium screen
+///             lg: 992px, // Large screen
+///             xl: 1200px, // Extra large screen
+///             xx: 1600px // Extra extra large screen
+///         )
+///     ));
+///     .element {
+///         display: block;
+///         @include media-breakpoint-only(sm, $grid: $example-grid) {
+///             display: none;
+///         }
+///     }
+///
+/// @example css
+///     .element {
+///         display: block;
+///     }
+///     @media screen and (min-width: 576px) and (max-width: 767px) {
+///         .element {
+///             display: none;
+///         }
+///     }
+
+
+@mixin media-breakpoint-only($bp-name, $grid: $default-grid) {
+    $grid: _sort-breakpoints-in-grid($grid, min);
+    $breakpoints: get-grid-value(breakpoints, $grid);
+
+    $min-width: map-get($breakpoints, $bp-name);
+    $max-width: next-breakpoint($bp-name ,$breakpoints);
+    @if ($max-width != null) {
+        $max-width: nth(nth($max-width, 1), 2);
+    }
+
+    $min-width-is-null: (($min-width == null) or ($min-width == 0));
+    $max-width-is-null: (($max-width == null) or ($max-width == 0));
+
+    @if (not ($min-width-is-null and $max-width-is-null)) {
+        @if ($min-width-is-null) {
+            @media only screen and (max-width: $max-width - 1) {
+                @content;
+            }
+        } @else if ($max-width-is-null) {
+            @media only screen and (min-width: $min-width) {
+                @content;
+            }
+        } @else {
+            @media only screen and (min-width: $min-width) and (max-width: $max-width - 1) {
+                @content;
+            }
+        }
+    }
+}

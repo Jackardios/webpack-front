@@ -1,0 +1,43 @@
+@import "grid-classes/options";
+@import "grid-classes/grid-media";
+@import "grid-classes/outer-container-classes";
+@import "grid-classes/grid-container-classes";
+@import "grid-classes/grid-column-classes";
+@import "grid-classes/grid-push-classes";
+@import "grid-classes/grid-shift-classes";
+
+@mixin grid-classes($options: $grid-classes-default-options, $grid: $default-grid) {
+    $options: map-merge($grid-classes-default-options, $options);
+    $components: map-get($options, 'components');
+    
+    @if (index($components, 'outer-container') !=null) {
+        @include outer-container-classes(
+            $options: $options,
+            $grid: $grid
+        );
+    }
+    @if (index($components, 'container') !=null) {
+        @include grid-container-classes(
+            $options: $options,
+            $grid: $grid
+        );
+    }
+    @if (index($components, 'column') != null) {
+        @include grid-column-classes(
+            $options: $options,
+            $grid: $grid
+        );
+    }
+    @if (index($components, 'push') != null) {
+        @include grid-push-classes(
+            $options: $options,
+            $grid: $grid
+        );
+    }
+    @if (index($components, 'shift') != null) {
+        @include grid-shift-classes(
+            $options: $options,
+            $grid: $grid
+        );
+    }
+}

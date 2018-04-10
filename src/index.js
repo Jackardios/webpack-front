@@ -2,8 +2,9 @@
 import "./index.scss";
 
 // polyfills
-import "babel-polyfill";
 // import requestanimationframe from './polyfills/requestanimationframe';
+// import './polyfills/arrayFind';
+// import './polyfills/arrayFrom';
 
 // helpers
 // import smoothScrollingToHashInit from './helpers/smoothScrollingToHash';
@@ -24,6 +25,5 @@ import "babel-polyfill";
 
 $(() => {
     // popupInit();
-    // smoothScrollingToHashInit();
     // new TextField(".input--text");
 });
