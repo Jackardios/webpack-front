@@ -4,6 +4,7 @@
 // libs and plugins
 $fa-font-path: '~font-awesome/fonts';
 @import "~font-awesome/scss/font-awesome.scss";
+@import "~brigrid/core/brigrid";
 
 // autoload
 @import "autoload/*.scss";

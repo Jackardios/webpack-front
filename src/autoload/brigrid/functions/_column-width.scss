@@ -1,7 +1,0 @@
-@function _column-width($columns, $grid: $default-grid) {
-    $grid-columns: get-grid-value(columns, $grid);
-
-    $width: 100% / $grid-columns * $columns;
-
-    @return $width;
-}
