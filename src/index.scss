@@ -6,9 +6,6 @@ $fa-font-path: '~font-awesome/fonts';
 @import "~font-awesome/scss/font-awesome.scss";
 @import "~brigrid/core/brigrid";
 
-// autoload
-@import "autoload/*.scss";
-
 // base
 @import "base/reset";
 @import "base/grid";
@@ -16,7 +13,7 @@ $fa-font-path: '~font-awesome/fonts';
 @import "base/colors";
 @import "base/variables";
 @import "base/fonts";
-@import "base/font-sizes";
+@import "base/vertical-rhythm";
 @import "base/animations";
 @import "base/common";
 @import "base/placeholders";

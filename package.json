@@ -46,6 +46,7 @@
     "resolve-url-loader": "^2.3.0",
     "sass-loader": "^6.0.7",
     "sass-math-pow": "^0.1.5",
+    "sassy-gridlover": "^5.2.1",
     "style-loader": "^0.18.2",
     "svgo": "^0.7.2",
     "svgo-loader": "^1.2.1",
