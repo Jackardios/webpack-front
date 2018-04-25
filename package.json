@@ -4,7 +4,7 @@
   "description": "Frontend boilerplate and framework based on webpack, pug and sass",
   "main": "index.js",
   "scripts": {
-    "clean": "rm dist -r -f && rm build -r -f && rm public_html -r -f",
+    "clean": "rm -rf dist && rm -rf build && rm -rf public_html",
     "clean--win": "rd /s /q dist && rd /s /q build && rd /s /q public_html",
     "build": "webpack --env=development",
     "build:production": "npm run clean && webpack -p --env=production",
