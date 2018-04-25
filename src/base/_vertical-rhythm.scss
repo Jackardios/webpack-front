@@ -1,0 +1,75 @@
+@import "~sassy-gridlover/sassy-gridlover/sassy-gridlover";
+
+$sgl-base-font-size: $SGL_DEFAULT_FONT_SIZE;
+$sgl-base-line-height: 1.2;
+$sgl-base-unit: "pxrem";
+$sgl-scale-factor: 1.333;
+$sgl-debug-mode: false;
+$sgl-extras: false;
+
+html {
+    @include sgl-html();
+}
+
+body {
+    @include sgl-body();
+}
+
+p,
+ul,
+ol,
+pre,
+table,
+blockquote {
+    @include sgl-margins();
+}
+
+// font sizes
+%font-size-1 {
+    @include sgl-heading(3);
+}
+
+%font-size-2 {
+    @include sgl-heading(2);
+}
+
+%font-size-3 {
+    @include sgl-heading(1);
+}
+
+%font-size-4 {
+    @include sgl-heading(0);
+}
+
+%font-size-5 {
+    @include sgl-heading(-1);
+}
+
+%font-size-6 {
+    @include sgl-heading(-2);
+}
+
+
+h1 {
+    @extend %font-size-1;
+}
+
+h2 {
+    @extend %font-size-2;
+}
+
+h3 {
+    @extend %font-size-3;
+}
+
+h4 {
+    @extend %font-size-4;
+}
+
+h5 {
+    @extend %font-size-5;
+}
+
+h6 {
+    @extend %font-size-6;
+}
