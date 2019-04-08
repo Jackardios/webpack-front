@@ -2,7 +2,6 @@
 $font-size-large--mobile: 2.5rem;
 $font-size-large--tablet: 3rem;
 $font-size-large: 4rem;
-
 %font-size-large {
   font-size: $font-size-large--mobile;
 
@@ -18,7 +17,6 @@ $font-size-large: 4rem;
 $font-size-1--mobile: 2.5rem;
 $font-size-1--tablet: 2.75rem;
 $font-size-1: 2.857142857142857rem;
-
 %font-size-1 {
   font-size: $font-size-1--mobile;
 
@@ -34,7 +32,6 @@ $font-size-1: 2.857142857142857rem;
 $font-size-2--mobile: 2rem;
 $font-size-2--tablet: 2.25rem;
 $font-size-2: 2.4285714286rem;
-
 %font-size-2 {
   font-size: $font-size-2--mobile;
 
@@ -48,25 +45,21 @@ $font-size-2: 2.4285714286rem;
 }
 
 $font-size-3: 1.5rem;
-
 %font-size-3 {
   font-size: $font-size-3;
 }
 
 $font-size-4: 1.125rem;
-
 %font-size-4 {
   font-size: $font-size-4;
 }
 
 $font-size-5: $base-font-size * 0.875;
-
 %font-size-5 {
   font-size: $font-size-5;
 }
 
 $font-size-6: $base-font-size * 0.75;
-
 %font-size-6 {
   font-size: $font-size-6;
 }

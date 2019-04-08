@@ -91,18 +91,19 @@ a {
   transition: color 0.24s ease;
 }
 
-blockquote {
-  margin: 0;
-  padding: 1.5rem;
-  background-color: #efefef;
-  border-left: 5px solid $color-primary;
-
-  @include bp-from(lg) {
-    padding: 1.5rem 3rem;
-  }
-}
-
 ul,
 ol {
   line-height: 1.5;
 }
+
+// blockquote {
+//   margin: 0;
+//   padding: 1.5rem;
+//   background-color: #efefef;
+//   border-left: 5px solid $color-primary;
+
+//   @include bp-from(lg) {
+//     padding: 1.5rem 3rem;
+//   }
+// }
+

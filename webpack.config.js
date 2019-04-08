@@ -6,14 +6,20 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const postcssNormalize = require("postcss-normalize");
+
+const PATHS = {
+  src: path.resolve(__dirname, "src"),
+  build: path.resolve(__dirname, "build")
+};
 
 module.exports = (env, options) => {
   const isDevMode = options.mode !== "production";
 
   const commonConfig = {
-    entry: "./src/scripts/app.js",
+    entry: path.join(PATHS.src, "scripts/app.js"),
     output: {
-      path: path.resolve(__dirname, "build"),
+      path: PATHS.build,
       filename: "app" + (isDevMode ? ".js" : ".min.js")
     },
     module: {
@@ -26,13 +32,30 @@ module.exports = (env, options) => {
           }
         },
         {
-          test: /\.(sa|sc|c)ss$/,
-          use: [
-            isDevMode ? "style-loader" : MiniCssExtractPlugin.loader,
-            "css-loader",
-            "postcss-loader",
-            "sass-loader"
-          ]
+          enforce: "pre",
+          test: /\.(js|s?[ca]ss)$/,
+          include: PATHS.src,
+          loader: "import-glob"
+        },
+        {
+          test: /\.(ttf|otf|eot|woff2?|png|jpe?g|gif|svg|ico)$/,
+          include: PATHS.src,
+          loader: "url-loader",
+          options: {
+            limit: 4096,
+            name: "[path][name].[ext]"
+          }
+        },
+
+        {
+          test: /\.(ttf|otf|eot|woff2?|png|jpe?g|gif|svg|ico)$/,
+          include: /node_modules/,
+          loader: "url-loader",
+          options: {
+            limit: 4096,
+            outputPath: "vendor/",
+            name: "[name].[ext]"
+          }
         },
         {
           test: /\.html$/,
@@ -45,15 +68,26 @@ module.exports = (env, options) => {
         }
       ]
     },
-    plugins: [new CleanWebpackPlugin(["build"])]
+    plugins: [new CleanWebpackPlugin()],
+    externals: {
+      jquery: "jQuery"
+    }
   };
 
   const devConfig = {
+    module: {
+      rules: [
+        {
+          test: /\.(sa|sc|c)ss$/,
+          use: ["style-loader", "css-loader", "sass-loader"]
+        }
+      ]
+    },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new HtmlWebPackPlugin({
         filename: "index.html",
-        template: "./src/index.html"
+        template: path.join(PATHS.src, "index.html")
       })
     ],
     devtool: "source-map",
@@ -65,6 +99,40 @@ module.exports = (env, options) => {
   };
 
   const productionConfig = {
+    module: {
+      rules: [
+        {
+          test: /\.(sa|sc|c)ss$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            "css-loader",
+            {
+              loader: "postcss-loader",
+              options: {
+                // Necessary for external CSS imports to work
+                // https://github.com/facebook/create-react-app/issues/2677
+                ident: "postcss",
+                plugins: () => [
+                  require("postcss-flexbugs-fixes"),
+                  require("postcss-preset-env")({
+                    autoprefixer: {
+                      flexbox: "no-2009"
+                    },
+                    stage: 3
+                  }),
+                  // Adds PostCSS Normalize as the reset css with default options,
+                  // so that it honors browserslist config in package.json
+                  // which in turn let's users customize the target behavior as per their needs.
+                  postcssNormalize()
+                ],
+                sourceMap: true
+              }
+            },
+            "sass-loader"
+          ]
+        }
+      ]
+    },
     optimization: {
       minimizer: [new OptimizeCSSAssetsPlugin({})],
       splitChunks: {
@@ -93,6 +161,10 @@ module.exports = (env, options) => {
         cache: true,
         parallel: true,
         sourceMap: true
+      }),
+
+      new MiniCssExtractPlugin({
+        filename: "app" + (isDevMode ? ".css" : ".min.css")
       })
     ]
   };
