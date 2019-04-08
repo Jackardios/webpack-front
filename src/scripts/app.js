@@ -1,10 +1,10 @@
 // import styles
-import "../scss/app.scss";
+import '../scss/app.scss';
 
 // import external dependencies
-import "jquery";
+import 'jquery';
 
 // Import everything from autoload
-import "./autoload/**/*";
+import './autoload/**/*';
 
 jQuery(document).ready(() => {});
