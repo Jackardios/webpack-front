@@ -1,97 +1,103 @@
-// Import libs
 const path = require("path");
 const webpack = require("webpack");
 const merge = require("webpack-merge");
+const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+const HtmlWebPackPlugin = require("html-webpack-plugin");
 
-// Import plugins
-const HTMLWebpackPlugin = require("html-webpack-plugin");
+module.exports = (env, options) => {
+  const isDevMode = options.mode !== "production";
 
-// Import configuration parts
-const cssExtract = require("./webpack-configs/css-extract");
-const svgSprites = require("./webpack-configs/svg-sprites");
-const importGlob = require("./webpack-configs/import-glob");
-const devServer = require("./webpack-configs/dev-server");
-const copyFiles = require("./webpack-configs/copy-files");
-const uglifyJS = require("./webpack-configs/uglifyJS");
-const images = require("./webpack-configs/images");
-const fonts = require("./webpack-configs/fonts");
-const babel = require("./webpack-configs/babel");
-const sass = require("./webpack-configs/sass");
-const css = require("./webpack-configs/css");
-const pug = require("./webpack-configs/pug");
-
-/**
- * Paths
- * @type {Object}
- */
-const PATHS = {
-    src: path.join( __dirname, "src" ),
-    dist: path.join( __dirname, "dist" ),
-    assets: path.join( __dirname, "src/assets" )
-};
-
-let imagesPaths = [
-    path.resolve( PATHS.assets, 'images' )
-];
-let fontsPaths = [
-    path.resolve( PATHS.assets, 'fonts' )
-];
-let spritesPaths = {
-    icons: path.resolve( PATHS.assets, 'icons' )
-};
-
-/**
- * Common configuration
- * @type {Object}
- */
-const common = merge([
-    {
-        context: PATHS.src,
-        entry: {
-            index: path.resolve(PATHS.src, "index.js"),
-        },
-        output: {
-            path: PATHS.dist,
-            filename: "js/[name].[hash].js",
-        },
-        externals: {
-            jquery: 'jQuery'
-        },
-        plugins: [
-            new HTMLWebpackPlugin({
-                filename: 'index.html',
-                chunks: ['index'],
-                template: path.resolve(PATHS.src, "index.pug")
-            }),
-            new webpack.ProvidePlugin({
-                $: 'jquery',
-                jQuery: 'jquery',
-                'window.$': 'jquery',
-                'window.jQuery': 'jquery',
-            })
-        ]
+  const commonConfig = {
+    entry: "./src/scripts/app.js",
+    output: {
+      path: path.resolve(__dirname, "build"),
+      filename: "app" + (isDevMode ? ".js" : ".min.js")
     },
-    pug(),
-    importGlob(),
-    fonts( fontsPaths ),
-    svgSprites( spritesPaths ),
-    devServer(),
-]);
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: "babel-loader"
+          }
+        },
+        {
+          test: /\.(sa|sc|c)ss$/,
+          use: [
+            isDevMode ? "style-loader" : MiniCssExtractPlugin.loader,
+            "css-loader",
+            "postcss-loader",
+            "sass-loader"
+          ]
+        },
+        {
+          test: /\.html$/,
+          use: [
+            {
+              loader: "html-loader",
+              options: { minimize: !isDevMode }
+            }
+          ]
+        }
+      ]
+    },
+    plugins: [new CleanWebpackPlugin(["build"])]
+  };
 
-module.exports = function(env) {
-    if (env === "production") {
-        return merge([
-            common,
-            images( imagesPaths, true ),
-            cssExtract( true ),
-            babel(),
-            uglifyJS(),
-        ]);
-    } else {
-        return merge([
-            common,
-            cssExtract( false ),
-            images( imagesPaths, false ),
-        ]);
+  const devConfig = {
+    plugins: [
+      new webpack.HotModuleReplacementPlugin(),
+      new HtmlWebPackPlugin({
+        filename: "index.html",
+        template: "./src/index.html"
+      })
+    ],
+    devtool: "source-map",
+    devServer: {
+      hot: true,
+      compress: true,
+      port: 9000
     }
-}
+  };
+
+  const productionConfig = {
+    optimization: {
+      minimizer: [new OptimizeCSSAssetsPlugin({})],
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: "styles",
+            test: /\.css$/,
+            chunks: "all",
+            enforce: true
+          }
+        }
+        // chunks: "all"
+      }
+    },
+    plugins: [
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            warnings: true,
+            drop_console: true
+          },
+          output: {
+            comments: false
+          }
+        },
+        cache: true,
+        parallel: true,
+        sourceMap: true
+      })
+    ]
+  };
+
+  return isDevMode
+    ? merge(commonConfig, devConfig)
+    : merge(commonConfig, productionConfig);
+};

@@ -1,0 +1,61 @@
+// easings
+$ease-out-cubic: cubic-bezier(0.2, 0.5, 0.3, 1);
+$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+$ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+$wind-easing: cubic-bezier(0.11, 0.815, 0.195, 0.95);
+
+// shadows
+$primary-shadow--hidden: 0 0 0 rgba(#988c74, 0.24);
+$primary-shadow: 0 4px 30px rgba(#988c74, 0.24);
+
+// fonts
+$base-font-size: 14px;
+$font-avenir: "Avenir Next Cyr", Helvetica, Arial, sans-serif;
+$font-awesome: "Font Awesome 5 Free", sans-serif;
+
+$common-font: $font-avenir;
+$text-font: $font-avenir;
+$button-font: $font-avenir;
+$title-font: $font-avenir;
+$icon-font: $font-awesome;
+
+// colors
+$color-primary: #f34437;
+$color-primary--dark: darken($color-primary, 7%);
+$color-primary--light: lighten($color-primary, 7%);
+$color-secondary: #f0c424;
+$color-secondary--dark: darken($color-secondary, 7%);
+$color-secondary--light: lighten($color-secondary, 7%);
+$color-accent: $color-primary;
+$color-accent--dark: $color-primary--dark;
+$color-accent--light: $color-primary--light;
+$color-dark: #343434;
+$color-black: #331849;
+$color-beige: #f4f3f3;
+$color-gray--light: #e0e0e0;
+$color-gray--medium: #bdbdbd;
+$color-gray--dark: #b7b7b7;
+$color-gray--darker: #666;
+$color-error: #ff4141;
+$color-success: #0ceb75;
+
+// library variables
+$diamodal-base-font-size: $base-font-size;
+$diamodal-base-font-family: $common-font;
+$diamodal-color-dark: $color-dark;
+$diamodal-color-gray--light: $color-gray--medium;
+$diamodal-color-primary: $color-primary;
+$diamodal-color-primary--dark: $color-primary--dark;
+
+$diacart-base-font: $common-font;
+$diacart-numbers-font: $title-font;
+$diacart-buttons-font: $button-font;
+$diacart-color-primary: $color-primary;
+$diacart-color-primary--dark: $color-primary--dark;
+$diacart-color-primary--light: $color-primary--light;
+$diacart-color-accent: $diacart-color-primary--dark;
+$diacart-color-dark: $color-dark;
+$diacart-color-gray--light: $color-gray--medium;
+$diacart-color-gray--dark: $color-gray--dark;
+$diacart-color-error: $color-error;
+$diacart-color-error--dark: darken($diacart-color-error, 7%);

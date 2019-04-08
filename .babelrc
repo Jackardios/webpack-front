@@ -1,13 +1,8 @@
 {
     "presets": [
-        ["env", {
-            "targets": {
-                "browsers": [
-                    "last 2 versions",
-                    "IE >= 10"
-                ]
-            },
-            "useBuiltIns": true
-        }]
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties",
     ]
-}
+  }

@@ -1,0 +1,22 @@
+@mixin underline($height: 1px, $color: #a29aa9, $offset-top: 0px) {
+  // position: relative;
+
+  &:hover::after {
+    transform: scaleX(0);
+  }
+
+  &::after {
+    content: "";
+    // position: absolute;
+    // left: 0;
+    // right: 0;
+    // bottom: $offset-top * -1;
+    display: block;
+    width: 100%;
+    height: $height;
+    margin-top: $offset-top;
+    background-color: $color;
+    transform: scaleX(1);
+    transition: transform .36s ease;
+  }
+}

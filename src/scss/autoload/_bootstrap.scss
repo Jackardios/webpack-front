@@ -1,0 +1,48 @@
+// bootstrap variables
+$grid-columns: 12;
+$grid-gutter-width: 30px;
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1440px
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px
+);
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/utilities/flex";
+// @import "~bootstrap/scss/utilities/display";
+// @import "~bootstrap/scss/utilities/spacing";
+
+@mixin bp-before($bp-name) {
+  $bp-size: map-get($grid-breakpoints, $bp-name);
+
+  @if ($bp-size and ($bp-size !=0)) {
+    @media (max-width: $bp-size - 0.02) {
+      @content;
+    }
+  }
+}
+
+@mixin bp-from($bp-name) {
+  @include media-breakpoint-up($bp-name) {
+    @content;
+  }
+}
+
+@mixin bp-only($bp-name) {
+  @include media-breakpoint-only($bp-name) {
+    @content;
+  }
+}

@@ -1,0 +1,108 @@
+/* base */
+$global-bg-color: #fff;
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $global-bg-color;
+  color: $color-dark;
+  font-family: $common-font;
+  font-weight: normal;
+  font-size: $base-font-size;
+  // letter-spacing: 0.05em;
+}
+
+html {
+  box-sizing: border-box;
+  -ms-overflow-style: scrollbar;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  min-width: 320px;
+  // overflow-x: hidden;
+  // overflow-y: scroll;
+}
+
+p {
+  line-height: 1.5;
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+/* headinds */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @extend %wrap-long-words;
+
+  margin-top: 0;
+  margin-bottom: 1em;
+  font-family: $title-font;
+  font-weight: bold;
+  line-height: 1.25;
+}
+
+h1 {
+  @extend %font-size-1;
+}
+
+h2 {
+  @extend %font-size-2;
+}
+
+h3 {
+  @extend %font-size-3;
+}
+
+h4 {
+  @extend %font-size-4;
+}
+
+h5 {
+  @extend %font-size-5;
+}
+
+h6 {
+  @extend %font-size-6;
+}
+
+/* controls */
+button,
+input,
+optgroup,
+select,
+textarea {
+  line-height: 1.25;
+  border-radius: 0;
+}
+
+a {
+  color: $color-primary;
+  transition: color 0.24s ease;
+}
+
+blockquote {
+  margin: 0;
+  padding: 1.5rem;
+  background-color: #efefef;
+  border-left: 5px solid $color-primary;
+
+  @include bp-from(lg) {
+    padding: 1.5rem 3rem;
+  }
+}
+
+ul,
+ol {
+  line-height: 1.5;
+}

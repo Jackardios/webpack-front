@@ -1,0 +1,130 @@
+.wrapper {
+  @extend .container;
+
+  &-fluid {
+    @extend .container-fluid;
+  }
+
+  &-fullwidth {
+    @extend .container;
+
+    @include bp-from(xl) {
+      max-width: 100%;
+      padding-left: 45px;
+      padding-right: 45px;
+    }
+  }
+
+  &-small {
+    @extend .container;
+
+    @include bp-from(xl) {
+      max-width: 992px;
+    }
+  }
+
+  &-large {
+    @extend .container;
+
+    @include bp-from(xl) {
+      max-width: 1530px;
+      padding-left: 45px;
+      padding-right: 45px;
+    }
+
+    // @media (min-width: 1400px) {
+    //   padding-left: 50px;
+    //   padding-right: 50px;
+    // }
+  }
+
+  &-extra-large {
+    @extend .container;
+
+    @include bp-from(xl) {
+      max-width: 1920px;
+      padding-left: 45px;
+      padding-right: 45px;
+    }
+
+    // @media (min-width: 1400px) {
+    //   padding-left: 50px;
+    //   padding-right: 50px;
+    // }
+  }
+}
+
+@mixin row-gutter($gutter) {
+  margin-left: -$gutter;
+  margin-right: -$gutter;
+
+  > [class*="col"] {
+    padding-left: $gutter;
+    padding-right: $gutter;
+
+    &.col-v-gutter {
+      padding-top: $gutter;
+      padding-bottom: $gutter;
+    }
+  }
+}
+
+.row {
+  &--no-gutter {
+    @include row-gutter(0);
+  }
+
+  &--extra-small-gutter {
+    @include row-gutter(5px);
+  }
+
+  &--small-gutter {
+    @include row-gutter(10px);
+  }
+
+  &--large-gutter {
+    @include row-gutter(25px);
+  }
+}
+
+.col {
+  &-v-gutter {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+}
+
+.hidden {
+  display: none !important;
+
+  @each $bp-name, $bp-size in $grid-breakpoints {
+    @include bp-before($bp-name) {
+      &-before-#{$bp-name} {
+        display: none !important;
+      }
+    }
+
+    @include bp-from($bp-name) {
+      &-#{$bp-name} {
+        display: none !important;
+      }
+    }
+  }
+
+  &-xxl {
+    @media screen and (min-width: 1440px) {
+      display: none !important;
+    }
+  }
+
+  &-before-xxl {
+    @media screen and (max-width: 1439.5px) {
+      display: none !important;
+    }
+  }
+}
+
+.vertical-grid {
+  display: flex !important;
+  flex-direction: column !important;
+}
