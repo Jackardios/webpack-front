@@ -2,7 +2,7 @@ $spacer: 1rem;
 
 .m {
   @each $side in ("t", "b") {
-    @for $i from 1 through 4 {
+    @for $i from 1 through 6 {
       &#{$side}-#{$i} {
         @if ($side == "t") {
           margin-top: $i * $spacer;

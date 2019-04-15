@@ -42,8 +42,10 @@ module.exports = (env, options) => {
           include: PATHS.src,
           loader: 'url-loader',
           options: {
-            limit: 4096,
-            name: '[path][name].[ext]',
+            limit: 2048,
+            name: '[name].[ext]',
+            useRelativePath: true,
+            outputPath: 'images/',
           },
         },
 
@@ -52,7 +54,7 @@ module.exports = (env, options) => {
           include: /node_modules/,
           loader: 'url-loader',
           options: {
-            limit: 4096,
+            limit: 2048,
             outputPath: 'vendor/',
             name: '[name].[ext]',
           },
@@ -62,13 +64,19 @@ module.exports = (env, options) => {
           use: [
             {
               loader: 'html-loader',
-              options: { minimize: !isDevMode },
+              options: { minimize: false },
             },
           ],
         },
       ],
     },
-    plugins: [new CleanWebpackPlugin()],
+    plugins: [
+      new CleanWebpackPlugin(),
+      new HtmlWebPackPlugin({
+        filename: 'index.html',
+        template: path.join(PATHS.src, 'index.html'),
+      }),
+    ],
     externals: {
       jquery: 'jQuery',
     },
@@ -83,13 +91,7 @@ module.exports = (env, options) => {
         },
       ],
     },
-    plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-      new HtmlWebPackPlugin({
-        filename: 'index.html',
-        template: path.join(PATHS.src, 'index.html'),
-      }),
-    ],
+    plugins: [new webpack.HotModuleReplacementPlugin()],
     devtool: 'source-map',
     devServer: {
       hot: true,
@@ -186,17 +188,17 @@ module.exports = (env, options) => {
           },
         }),
       ],
-      splitChunks: {
-        cacheGroups: {
-          styles: {
-            name: 'styles',
-            test: /\.css$/,
-            chunks: 'all',
-            enforce: true,
-          },
-        },
-        // chunks: "all"
-      },
+      // splitChunks: {
+      //   cacheGroups: {
+      //     styles: {
+      //       name: 'styles',
+      //       test: /\.css$/,
+      //       chunks: 'all',
+      //       enforce: true,
+      //     },
+      //   },
+      //   // chunks: "all"
+      // },
     },
     plugins: [
       new MiniCssExtractPlugin({
